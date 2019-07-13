@@ -1,7 +1,7 @@
 /* Nome:  Programa Automação Casa 
    Autor: Alan Spinola 
    Data:  07/07/2019
-   Versão: 1.1 - Arduino UNO - C++ (Ver1.1)
+   Versão: 1.0 - Arduino UNO - C++ (Ver1.0)
 */
 
 // INCLUSÃO DE BIBLIOTECAS
@@ -9,17 +9,16 @@
 #include <stdio.h> 
 
 
-// DEFINIÇÃO PINOS 
+// DEFINIÇÃO PINOS
 int RECV_PIN = 11;
-int Vermelho = 8; // Lâmpada da Sala
-int Verde = 9; // Lâmpada da Cozinha
-int Azul = 10; //Lâmpada da Cozinha II
-int Ventilador = 12; //Ventilador da Cozinha II
+int Vermelho = 8;
+int Verde = 9;
+int Azul = 10;
 int Buzzer = 6;
 
 char autor[] = "Alan Spinola";
-double ver = 1.1;
-
+double ver = 1.0;
+boolean efeito();
 // INSTANCIANDO OBJETOS
 IRrecv irrecv(RECV_PIN);
 decode_results results;
@@ -46,12 +45,10 @@ void setup() {
 void loop(){
 boolean efeito_direito();
 boolean efeito_esquerdo();
-boolean botao_maior();
-boolean botao_menor();
 
    if (irrecv.decode(&results)) {
-  // Serial.print(" Apertado Botão:   ");
-  // Serial.println(results.value, DEC);
+   //Serial.print(" Apertado Botão:   ");
+   //Serial.println(results.value, DEC);
     irrecv.resume(); // Receive the next value
 
 
@@ -111,31 +108,7 @@ boolean botao_menor();
         efeito_direito();
         break;
         
-      } 
-         case (3721245087): {
-        Serial.println("Maior");
-        botao_maior();
-        break;
-        
-      }
-         case (551526495): {
-        Serial.println("Menor");
-        botao_menor();
-        break;
-        
-      }
-          case (719194275): {
-        Serial.println("Ventilador ON");
-        digitalWrite(Ventilador, HIGH);
-        break;
-        
-      }
-         case (2086679999): {
-        Serial.println("Ventilador OFF");
-       digitalWrite(Ventilador, LOW);
-        break;
-        
-      }  
+      }   
    }
 }
 
@@ -161,7 +134,7 @@ int i = 10;
     digitalWrite(Azul, LOW);
     delay(200);
   }
-}
+};
 
 boolean efeito_esquerdo(){
 
@@ -182,50 +155,3 @@ int i = 10;
     delay(200);
   }
 };
-
-
-boolean botao_maior(){
-
-  int i = 255;
-  int del = 15;
-
-  for (i = 1; i <= 255; i++){
-
-    
-    analogWrite(Vermelho, 255);
-    delay(del);
-    analogWrite(Vermelho, 0);
-    delay(del);
-    analogWrite(Verde, 255);
-    delay(del);
-    analogWrite(Verde, 0);
-    delay(del);
-    analogWrite(Azul, 255);
-    delay(del);
-    analogWrite(Azul, 0);
-    delay(del);
-    
-}
-}
-
-boolean botao_menor(){
-  
-  int i = 255;
-  int del = 30;
-
-  for (i = 1; i <= 255; i++){
-    analogWrite(Vermelho, 255);
-    delay(del);
-    analogWrite(Verde, 255);
-    delay(del);
-    analogWrite(Azul, 255);
-    delay(del);
-    analogWrite(Vermelho, 0);
-    delay(del);
-    analogWrite(Verde, 0);
-    delay(del);
-    analogWrite(Azul, 0);
-    delay(del);
- 
-}
-}
